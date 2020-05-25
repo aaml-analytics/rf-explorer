@@ -6,17 +6,6 @@ These tools aim to provide a reproducible and consistent data visualisation plat
 ### App Manual
 - The app manual, explaining data file upload requirements, features of the tool and how to read the plot outputs can be found [here]
 
-## Deploying to Heroku
-```bash
-heroku create
-git push heroku master
-heroku open
-```
-Alternatively, you can deploy your own copy of the app using this button and creating your own Heroku account:
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-- Note: Once you have created your own copy of the app, after a period of inactivity Heroku shuts down the app's containers. Once the app gets a web request (the link above is used), it will wake up, but the initial response can take 10-20 seconds.
-
 ## Deploy app on server (production and development)
 
 ### Requirements
