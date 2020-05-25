@@ -21,6 +21,7 @@ import plotly.graph_objs as go
 import plotly_express as px
 from dash.dependencies import Input, Output, State
 import urllib.parse
+import eventlet
 
 external_stylesheets = [dbc.themes.BOOTSTRAP, 'https://codepen.io/chriddyp/pen/bWLwgP.css',
                         "https://codepen.io/sutharson/pen/ZEbqopm.css"]
