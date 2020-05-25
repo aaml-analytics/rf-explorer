@@ -63,8 +63,8 @@ You can then run the app on your browser at http://127.0.0.1:8050
 ```bash
 gunicorn app:server --worker-class eventlet --log-level debug --bind 0.0.0.0:8080
 ```
-You can then run the app on your browser at http://0.0.0.0:8000
-- This URL will continue running and can be used to access the app even after you have left your terminal.
+You can then run the app on your browser at http://0.0.0.0:8080
+- This URL will continue running and can be used to access the app even after you have exited your terminal.
 
 ## Screenshots
 
