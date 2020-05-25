@@ -99,7 +99,7 @@ Cambridge <br>
 CB3 0AS
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/aaml-analytics/pca-explorer/blob/master/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/aaml-analytics/rf-explorer/blob/add-license-1/LICENSE) file for details
 
 ## Acknowledgments
 <p> 
