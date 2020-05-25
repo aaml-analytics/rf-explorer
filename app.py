@@ -1,15 +1,11 @@
 import base64
 import io
 import math
-from dash.exceptions import PreventUpdate
-import collections
 import dash_table
 import pandas as pd
 import numpy as np
 from dash_table.Format import Scheme, Format
 from scipy import stats
-import scipy.stats
-from scipy.interpolate import interpn
 from scipy.stats import gaussian_kde
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
@@ -24,7 +20,6 @@ import dash_html_components as html
 import plotly.graph_objs as go
 import plotly_express as px
 from dash.dependencies import Input, Output, State
-import dash_table
 import urllib.parse
 
 external_stylesheets = [dbc.themes.BOOTSTRAP, 'https://codepen.io/chriddyp/pen/bWLwgP.css',
