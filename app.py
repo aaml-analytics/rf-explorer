@@ -23,6 +23,8 @@ from dash.dependencies import Input, Output, State
 import urllib.parse
 import eventlet
 import gevent
+import threading
+threading._DummyThread._Thread__stop = lambda x: 42
 
 external_stylesheets = [dbc.themes.BOOTSTRAP, 'https://codepen.io/chriddyp/pen/bWLwgP.css',
                         "https://codepen.io/sutharson/pen/ZEbqopm.css"]
@@ -1375,4 +1377,4 @@ def update_output(target, feature_value, shared_data):
 if __name__ == '__main__':
     # For Development only, otherwise use gunicorn or uwsgi to launch, e.g.
     # gunicorn -b 0.0.0.0:8050 index:app.server
-    app.run_server()
+    app.run_server(debug=False)
