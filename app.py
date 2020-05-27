@@ -24,6 +24,7 @@ import urllib.parse
 import eventlet
 import gevent
 import threading
+
 threading._DummyThread._Thread__stop = lambda x: 42
 
 external_stylesheets = [dbc.themes.BOOTSTRAP, 'https://codepen.io/chriddyp/pen/bWLwgP.css',
@@ -96,8 +97,6 @@ tab_mini_selected_style_2 = {
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
-
-
 
 app.layout = html.Div(
     [
@@ -628,6 +627,7 @@ def activate_input(data):
     options = [{'label': i, 'value': i} for i in dff.columns]
     return options
 
+
 @app.callback([Output('data-table-features', 'data'),
                Output('data-table-features', 'columns')],
               [Input('feature-input', 'value'),
@@ -787,14 +787,12 @@ def populate_randomised_cv_grid(feature_value, target, n_clicks, data, n_inter):
                                        if int(best_random_params_df.at[0, 'n_estimators'] - 200) > 0 else 1,
                                        best_random_params_df.at[0, 'n_estimators'],
                                        (best_random_params_df.at[0, 'n_estimators'] + 200)],
-                      'max_features': [abs(round(math.sqrt(len(input_else_X.columns))) - 1)/len(feature_value),
-                                       # if round(math.sqrt(len(input_else_X.columns)))/len(feature_value) > 0 else 1,
-                                       round(math.sqrt(len(input_else_X.columns)))/len(feature_value),
-                                        # if round(math.sqrt(len(input_else_X.columns))) > 0 else 1,
-                                       (round(math.sqrt(len(input_else_X.columns))) + 1)//len(feature_value)]
+                      # NEED TO CHANGE MAX FEATURES
+                      'max_features': [max(1, abs(round(math.sqrt(len(input_else_X.columns))) - 1)),
+                                       max(1, round(math.sqrt(len(input_else_X.columns)))),
+                                       max(1, (round(math.sqrt(len(input_else_X.columns))) + 1))]
                       if best_random_params_df.at[0, 'max_features'] == 'sqrt' else
-                      [abs(len(input_else_X.columns) - 1)/len(feature_value), len(input_else_X.columns)/len(feature_value), 
-                       (len(input_else_X.columns) + 1)/len(feature_value)],
+                      [abs(len(input_else_X.columns) - 1), len(input_else_X.columns), (len(input_else_X.columns) + 1)],
                       'min_samples_leaf': [abs(best_random_params_df.at[0, 'min_samples_leaf'] - 1)
                                            if int(best_random_params_df.at[0, 'min_samples_leaf'] - 1) > 0 else 1,
                                            best_random_params_df.at[0, 'min_samples_leaf'],
@@ -821,11 +819,12 @@ def populate_randomised_cv_grid(feature_value, target, n_clicks, data, n_inter):
         best_grid_search = grid_search.best_params_
         best_grid_search_df = pd.DataFrame.from_dict(best_grid_search, orient='index')
         best_grid_search_df = best_grid_search_df.T
-        max_features_1 = best_grid_search_df.at[0, 'max_features']/len(feature_value)
+        # max_features_1 = best_grid_search_df.at[0, 'max_features']/len(feature_value)
+        # print(len(feature_value))
         # RANDOM FOREST using best grid search hyperparameters and testing on test set
         regressor = RandomForestRegressor(n_estimators=best_grid_search_df.at[0, 'n_estimators'],
                                           max_depth=best_grid_search_df.at[0, 'max_depth'],
-                                          max_features=max_features_1,
+                                          max_features=max(1, best_grid_search_df.at[0, 'max_features']),
                                           min_samples_leaf=best_grid_search_df.at[0, 'min_samples_leaf'],
                                           min_samples_split=best_grid_search_df.at[0, 'min_samples_split'],
                                           bootstrap=best_grid_search_df.at[0, 'bootstrap'],
@@ -944,7 +943,7 @@ def populate_metrics_table(performance_metrics):
 
 
 @app.callback(Output('feature-importance', 'figure'),
-              [Input('memory-output', 'data'),])
+              [Input('memory-output', 'data'), ])
 def update_shared_data(shared_data):
     if shared_data is None:
         raise dash.exceptions.PreventUpdate
@@ -1016,10 +1015,11 @@ def populate_final_RF(feature_value, target, test_size, shared_data, data):
     X_train, X_test, Y_train, Y_test = train_test_split(input_else_X, input_else_Y,
                                                         test_size=0.25 if test_size is None else test_size,
                                                         random_state=34)
-    max_features_1 = best_grid_param.at[0, 'max_features'] / len(feature_value)
+    # max_features_1 = best_grid_param.at[0, 'max_features'] / len(feature_value)
+    # print(len(feature_value))
     regressor = RandomForestRegressor(n_estimators=int(best_grid_param.at[0, 'n_estimators']),
                                       max_depth=int(best_grid_param.at[0, 'max_depth']),
-                                      max_features=max_features_1,
+                                      max_features=max(1, best_grid_param.at[0, 'max_features']),
                                       min_samples_leaf=int(best_grid_param.at[0, 'min_samples_leaf']),
                                       min_samples_split=int(best_grid_param.at[0, 'min_samples_split']),
                                       bootstrap=best_grid_param.at[0, 'bootstrap'], random_state=64)
