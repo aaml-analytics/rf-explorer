@@ -792,7 +792,9 @@ def populate_randomised_cv_grid(feature_value, target, n_clicks, data, n_inter):
                                        max(1, int(round(math.sqrt(len(feature_value))))),
                                        max(1, int((round(math.sqrt(len(feature_value))) + 1)))]
                       if best_random_params_df.at[0, 'max_features'] == 'sqrt' else
-                      [int(abs(len(feature_value) - 1)), int(len(feature_value)), int(len(feature_value) + 1)],
+                      [int(len(feature_value) - 2) if int(len(feature_value) - 2) > 0 else 1,
+                       int(abs(len(feature_value) - 1)) if int(abs(len(feature_value) - 1)) > 0 else 1,
+                       int(len(feature_value))],
                       'min_samples_leaf': [abs(best_random_params_df.at[0, 'min_samples_leaf'] - 1)
                                            if int(best_random_params_df.at[0, 'min_samples_leaf'] - 1) > 0 else 1,
                                            best_random_params_df.at[0, 'min_samples_leaf'],
