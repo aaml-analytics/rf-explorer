@@ -787,14 +787,12 @@ def populate_randomised_cv_grid(feature_value, target, n_clicks, data, n_inter):
                                        if int(best_random_params_df.at[0, 'n_estimators'] - 200) > 0 else 1,
                                        best_random_params_df.at[0, 'n_estimators'],
                                        (best_random_params_df.at[0, 'n_estimators'] + 200)],
-                      'max_features': [float(abs(math.sqrt(len(input_else_X.columns)) - 1) / len(feature_value))
-                                       if abs(math.sqrt(len(input_else_X.columns)) - 1) > 1 else float(1),
-                                       float(math.sqrt(len(input_else_X.columns)) / len(feature_value)),
-                                       float((math.sqrt(len(input_else_X.columns)) + 1) / len(feature_value))]
+                      # NEED TO CHANGE MAX FEATURES
+                      'max_features': [int(max(1, abs(round(math.sqrt(len(feature_value))) - 1))),
+                                       int(max(1, round(math.sqrt(len(feature_value))))),
+                                       int(max(1, (round(math.sqrt(len(feature_value))) + 1)))]
                       if best_random_params_df.at[0, 'max_features'] == 'sqrt' else
-                      [float(abs(len(feature_value) - 1) / len(feature_value)),
-                       float(len(feature_value) / len(feature_value)),
-                       float((len(feature_value) + 1) / len(feature_value))],
+                      [int(abs(len(feature_value) - 1)), int(len(feature_value)), int(len(feature_value) + 1)],
                       'min_samples_leaf': [abs(best_random_params_df.at[0, 'min_samples_leaf'] - 1)
                                            if int(best_random_params_df.at[0, 'min_samples_leaf'] - 1) > 0 else 1,
                                            best_random_params_df.at[0, 'min_samples_leaf'],
@@ -821,10 +819,12 @@ def populate_randomised_cv_grid(feature_value, target, n_clicks, data, n_inter):
         best_grid_search = grid_search.best_params_
         best_grid_search_df = pd.DataFrame.from_dict(best_grid_search, orient='index')
         best_grid_search_df = best_grid_search_df.T
+        # max_features_1 = best_grid_search_df.at[0, 'max_features']/len(feature_value)
+        # print(len(feature_value))
         # RANDOM FOREST using best grid search hyperparameters and testing on test set
         regressor = RandomForestRegressor(n_estimators=best_grid_search_df.at[0, 'n_estimators'],
                                           max_depth=best_grid_search_df.at[0, 'max_depth'],
-                                          max_features=float(best_grid_search_df.at[0, 'max_features']),
+                                          max_features=int(max(1, best_grid_search_df.at[0, 'max_features'])),
                                           min_samples_leaf=best_grid_search_df.at[0, 'min_samples_leaf'],
                                           min_samples_split=best_grid_search_df.at[0, 'min_samples_split'],
                                           bootstrap=best_grid_search_df.at[0, 'bootstrap'],
@@ -1019,7 +1019,7 @@ def populate_final_RF(feature_value, target, test_size, shared_data, data):
     # print(len(feature_value))
     regressor = RandomForestRegressor(n_estimators=int(best_grid_param.at[0, 'n_estimators']),
                                       max_depth=int(best_grid_param.at[0, 'max_depth']),
-                                      max_features=float(best_grid_param.at[0, 'max_features']),
+                                      max_features=int(max(1, best_grid_param.at[0, 'max_features'])),
                                       min_samples_leaf=int(best_grid_param.at[0, 'min_samples_leaf']),
                                       min_samples_split=int(best_grid_param.at[0, 'min_samples_split']),
                                       bootstrap=best_grid_param.at[0, 'bootstrap'], random_state=64)
