@@ -894,7 +894,8 @@ def populate_randomised_cv_grid(feature_value, target, n_clicks, data, n_inter):
                                              ),
                                  ))
         traces.append(
-            go.Scatter(x=[0, scaleup(test_plot_df["Y_out"].max())], y=[0, scaleup(test_plot_df["Y_pred"].max())],
+            go.Scatter(x=[0, max(scaleup(test_plot_df["Y_out"].max()), scaleup(test_plot_df["Y_pred"].max()))],
+                       y=[0, max(scaleup(test_plot_df["Y_pred"].max()), scaleup(test_plot_df["Y_out"].max()))],
                        hoverinfo='skip', mode='lines', line=dict(color='Black', width=1, dash='dot')))
 
     return '{}'.format(trf_random.best_params_), '{:0.2f}% improvement'.format(percentage_improvement), \
@@ -909,16 +910,15 @@ def populate_randomised_cv_grid(feature_value, target, n_clicks, data, n_inter):
                     'title': "{} (Observed)".format(target),
                     'mirror': True,
                     'ticks': 'outside',
-                    'showline': True, 'range': [0, scaleup(
-                        test_plot_df["Y_out"].max())],
+                    'showline': True, 'range': [0, max(scaleup(test_plot_df["Y_out"].max()),
+                                                       scaleup(test_plot_df["Y_pred"].max()))],
                     'rangemode': "tozero"},
                 yaxis={
                     'title': "{} (Predicted)".format(target),
                     'mirror': True,
                     'ticks': 'outside',
                     'showline': True, 'rangemode': "tozero",
-                    'range': [0, scaleup(
-                        test_plot_df["Y_pred"].max())]},
+                    'range': [0, max(scaleup(test_plot_df["Y_out"].max()), scaleup(test_plot_df["Y_pred"].max()))]},
                 hovermode='closest',
                 font=dict(family="Helvetica"),
                 template="simple_white"
@@ -1092,7 +1092,8 @@ def populate_final_RF(feature_value, target, test_size, shared_data, data):
                                          ),
                              ))
     traces.append(
-        go.Scatter(x=[0, scaleup(test_plot_df["Y_test"].max())], y=[0, scaleup(test_plot_df["Y_pred"].max())],
+        go.Scatter(x=[0, max(scaleup(test_plot_df["Y_test"].max()), scaleup(test_plot_df["Y_pred"].max()))],
+                   y=[0, max(scaleup(test_plot_df["Y_test"].max()), scaleup(test_plot_df["Y_pred"].max()))],
                    hoverinfo='skip', mode='lines', line=dict(color='Black', width=1, dash='dot')))
     return test_plot_df.to_dict('records'), shared_data.to_dict('records'), \
            {'data': traces,
@@ -1107,8 +1108,7 @@ def populate_final_RF(feature_value, target, test_size, shared_data, data):
                     'mirror': True,
                     'ticks': 'outside',
                     'showline': True,
-                    'range': [0, scaleup(
-                        test_plot_df["Y_test"].max())],
+                    'range': [0, max(scaleup(test_plot_df["Y_test"].max()), scaleup(test_plot_df["Y_pred"].max()))],
                     'rangemode': "tozero"},
                 yaxis={
                     'title': "{} (Predicted)".format(
@@ -1117,9 +1117,7 @@ def populate_final_RF(feature_value, target, test_size, shared_data, data):
                     'ticks': 'outside',
                     'showline': True,
                     'rangemode': "tozero",
-                    'range': [0, scaleup(
-                        test_plot_df[
-                            "Y_pred"].max())]},
+                    'range': [0, max(scaleup(test_plot_df["Y_test"].max()), scaleup(test_plot_df["Y_pred"].max()))]},
                 hovermode='closest',
                 font=dict(family="Helvetica"),
                 template="simple_white"
