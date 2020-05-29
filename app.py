@@ -1,6 +1,8 @@
 import base64
 import io
 import math
+import textwrap
+
 import dash_table
 import pandas as pd
 import numpy as np
@@ -95,6 +97,67 @@ tab_mini_selected_style_2 = {
     'width': '400px'
 }
 
+
+# APP ABOUT DESCRIPTION
+RF_tool_about = textwrap.wrap(' These tools aim to provide a reproducible and consistent data visualisation platform '
+                               'where experimental and computational researchers can use random forest and statistical '
+                               'analysis to find the best materials for specific applications. Random forest is a '
+                              'supervised machine learning model that can be used to perform regression tasks. The model'
+                              ' learns to map data (features or descriptors) '
+                              'by constructing a multitude of decision trees to an output (target variable) in the '
+                              'training phase of the model. It uses bagging and feature randomness when building '
+                              'each individual tree to try to create an uncorrelated forest of trees that predicts the '
+                              'target variable more accurately than a single decision tree.',
+                               width=50)
+pre_RF = textwrap.wrap('Users can select which variables they would like as features and select their target variable '
+                       "in the 'Selecting Data for RF' tab. Non-numerical values are removed from the user's "
+                       'data frame and a table of selected '
+                       'features '
+                       "is populated. In the 'Feature Correlation' tab, a heatmap of the coefficient of determination of "
+                       'features and the target variable is also produced, allowing users to see correlations between the'
+                       ' variables used.',
+                               width=50)
+hyperparameter_tuning = textwrap.wrap(' Hyperparameter tuning is a way one can optimise their random forest model by '
+                                      ' changing settings in their algorithm to optimise its performance. '
+                                      'These hyperparameters are set before training the model. Scikit-learn'
+                                      ' uses a set of default hyperparameters for all models but these may not be'
+                                      ' optimal. In the apps hyperparameter tuning, 5-Fold Cross-Validation is used to'
+                                      ' obtain optimal hyperparameters '
+                                      'from a random hyperparameter grid. Random search will randomly test n number '
+                                      'of iterations, where n is a number inputted by the user, to find the best '
+                                      'hyperparameters. These '
+                                      ' hyperparameters are then used to create a second grid search '
+                                      'where all possible '
+                                      'hyperparameter settings in this grid are tested. The optimal '
+                                      'hyperparameters from this grid search are then '
+                                      "used as hyperparameters in the user's random forest model. This part of the tool"
+                                      ' requires the most time. When computing, the apps background will become faded '
+                                      'and '
+                                      'a loading cursor will appear. The process of your hyperparameter tuning can be '
+                                      'trailed on the terminal as the user runs the app.',
+                               width=50)
+output_plots = textwrap.wrap(" Once the app has computed the optimal hyperparameters, a parity plot using these "
+                             "hyperparameters will appear in the Results from 'Hyperparameter tuning' tab."
+                             ' A bar plot of feature importance and cumulative feature '
+                             'importance will also appear. This is not the final output of the model but useful to look '
+                             'at to analyse model performance metrics, overfitting, and feature '
+                             "engineering. In the 'Random Forest Output' tab, the user can determine a new test "
+                             'size to'
+                             ' compute the final random forest result. This will take a few seconds to compute. A '
+                             'feature importance bar plot will also appear which can be useful to see which features '
+                             'were considered most important in the model and which features can be removed to improve '
+                             "run time. In the subtab 'Error Plots', an error distribution of the models observed and "
+                             'predicted values is also available. ',
+                               width=50)
+data_tables = textwrap.wrap("The user's inputs across the app will provide the output of the data tables."
+                                    " The user can download the feature and target variable correlations,"
+                            " performance"
+                            " metrics, random forest data and feature importance data from the 'Random Forest Output' "
+                            "tab. ",
+                               width=50)
+MOF_GH = textwrap.wrap(" to explore AAML's sample data and read more on"
+                       " AAML's Random Forest Visualisation Tool Manual, FAQ's & Troubleshooting"
+                       " on GitHub... ", width=50)
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
@@ -134,10 +197,68 @@ app.layout = html.Div(
         dcc.Store(id='memory-output-2'),
         dcc.Store(id='memory-output-3'),
         dcc.Store(id='memory-output-4'),
-        dcc.Tabs([dcc.Tab(label='Preparing data for RF', style=tab_style, selected_style=tab_selected_style,
+        dcc.Tabs([
+dcc.Tab(label='About', style=tab_style, selected_style=tab_selected_style,
+                                                   children=[html.Div([html.H2(
+                                                       " What are AAML's Random Forest Visualisation Tools?",
+                                                       style={'fontSize': 18, 'font-family': 'Arial',
+                                                              'font-weight': 'bold'
+                                                              }),
+                                                                       html.Div([' '.join(RF_tool_about)]
+                                                                                , style={'font-family': 'Arial'}),
+                                                                       html.H2(["Preparing data for RF"],
+                                                                               style={'fontSize': 18,
+                                                                                      'font-family': 'Arial',
+                                                                                      'font-weight': 'bold'}),
+                                                                       html.Div([' '.join(pre_RF)],
+                                                                                style={'font-family': 'Arial'}),
+                                                                       html.H2(["Hyperparameter tuning"],
+                                                                               style={'fontSize': 18,
+                                                                                      'font-weight': 'bold',
+                                                                                      'font-family': 'Arial'}),
+                                                                       html.Div([' '.join(hyperparameter_tuning)],
+                                                                                style={'font-family': 'Arial', }),
+                                                                       html.H2(["Output Plots"],
+                                                                               style={'fontSize': 18,
+                                                                                      'font-weight': 'bold',
+                                                                                      'font-family': 'Arial'}),
+                                                                       html.Div([' '.join(output_plots)],
+                                                                                style={'font-family': 'Arial'}),
+                                                                       html.H2(["Data tables"],
+                                                                               style={'fontSize': 18,
+                                                                                      'font-weight': 'bold',
+                                                                                      'font-family': 'Arial'}),
+                                                                       html.Div([' '.join(data_tables)],
+                                                                                style={'font-family': 'Arial'}),
+
+                                                                       # ADD LINK
+                                                                       html.Div([html.Plaintext(
+                                                                           [' Click ', html.A('here ',
+                                                                                              href='https://github.com/aaml-analytics/rf-explorer')],
+                                                                           style={'display': 'inline-block',
+                                                                                  'fontSize': 14,
+                                                                                  'font-family': 'Arial'}),
+                                                                           html.Div([' '.join(MOF_GH)],
+                                                                                    style={'display': 'inline-block',
+                                                                                           'fontSize': 14,
+                                                                                           'font-family': 'Arial'}),
+                                                                           html.Img(
+                                                                               src='https://raw.githubusercontent.com/aaml-analytics/mof'
+                                                                                   '-explorer/master/github.png',
+                                                                               height='40', width='40',
+                                                                               style={'display': 'inline-block',
+                                                                                      'float': "right"
+                                                                                      })
+                                                                       ]
+                                                                           , style={'display': 'inline-block'})
+                                                                       ], style={'backgroundColor': '#ffffff',
+                                                                                 'padding-left': '1%'}
+                                                                      )]),
+            dcc.Tab(label='Preparing data for RF', style=tab_style, selected_style=tab_selected_style,
                           children=[
                               dcc.Tabs(id='sub-tabs1', style=tabs_styles,
-                                       children=[dcc.Tab(label='Selecting Data for RF', style=tab_mini_style,
+                                       children=[
+                                           dcc.Tab(label='Selecting Data for RF', style=tab_mini_style,
                                                          selected_style=tab_mini_selected_style,
                                                          children=[html.Div([html.P("Selecting Features")],
                                                                             style={'padding-left': '1%',
