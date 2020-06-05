@@ -40,7 +40,7 @@ styles = {
         'overflowX': 'scroll'
     }
 }
-tabs_styles = {'height': '40px', 'font-family': 'Arial', 'fontSize': 14}
+tabs_styles = {'height': '40px', 'font-family': 'Raleway', 'fontSize': 14}
 tab_style = {
     'borderBottom': '1px solid #d6d6d6',
     'padding': '6px',
@@ -166,20 +166,20 @@ app.layout = html.Div(
         html.Div([
             html.Img(
                 src='https://raw.githubusercontent.com/aaml-analytics/mof-explorer/master/UOC.png',
-                height='35', width='135', style={'display': 'inline-block', 'padding-left': '1%'}),
+                height='35', width='140', style={'display': 'inline-block', 'padding-left': '1%'}),
             html.Img(src='https://raw.githubusercontent.com/aaml-analytics/mof-explorer/master/A2ML-logo.png',
                      height='50', width='125',
                      style={'float': 'right', 'display': 'inline-block', 'padding-right': '2%'}),
             html.H1("Random Forest Visualisation Tools",
                     style={'display': 'inline-block', 'padding-left': '20%', 'text-align': 'center', 'fontSize': 36,
-                           'color': 'white', 'font-family': 'Georgia'}),
+                           'color': 'white', 'font-family': 'Raleway'}),
             html.H1("...", style={'fontColor': '#3c3c3c', 'fontSize': 6})
-        ], style={'backgroundColor': '#00113d'}),
+        ], style={'backgroundColor': '#333333'}),
         html.Div([html.A('Refresh', href='/')], style={}),
         html.Div([
-            html.H2("Upload Data", style={'fontSize': 24, 'font-family': 'Arial', 'color': '#00113d'}, ),
+            html.H2("Upload Data", style={'fontSize': 24, 'font-family': 'Raleway', 'color': '#333333'}, ),
             html.H3("Upload .txt, .csv or .xls files to starting exploring data...", style={'fontSize': 16,
-                                                                                            'font-family': 'Arial'}),
+                                                                                            'font-family': 'Raleway'}),
             dcc.Store(id='csv-data', storage_type='session', data=None),
             html.Div([dcc.Upload(
                 id='data-table-upload',
@@ -201,35 +201,35 @@ app.layout = html.Div(
 dcc.Tab(label='About', style=tab_style, selected_style=tab_selected_style,
                                                    children=[html.Div([html.H2(
                                                        " What are AAML's Random Forest Visualisation Tools?",
-                                                       style={'fontSize': 18, 'font-family': 'Arial',
+                                                       style={'fontSize': 18, 'font-family': 'Raleway',
                                                               'font-weight': 'bold'
                                                               }),
                                                                        html.Div([' '.join(RF_tool_about)]
-                                                                                , style={'font-family': 'Arial'}),
+                                                                                , style={'font-family': 'Raleway'}),
                                                                        html.H2(["Preparing data for RF"],
                                                                                style={'fontSize': 18,
-                                                                                      'font-family': 'Arial',
+                                                                                      'font-family': 'Raleway',
                                                                                       'font-weight': 'bold'}),
                                                                        html.Div([' '.join(pre_RF)],
-                                                                                style={'font-family': 'Arial'}),
+                                                                                style={'font-family': 'Raleway'}),
                                                                        html.H2(["Hyperparameter tuning"],
                                                                                style={'fontSize': 18,
                                                                                       'font-weight': 'bold',
-                                                                                      'font-family': 'Arial'}),
+                                                                                      'font-family': 'Raleway'}),
                                                                        html.Div([' '.join(hyperparameter_tuning)],
-                                                                                style={'font-family': 'Arial', }),
+                                                                                style={'font-family': 'Raleway', }),
                                                                        html.H2(["Output Plots"],
                                                                                style={'fontSize': 18,
                                                                                       'font-weight': 'bold',
-                                                                                      'font-family': 'Arial'}),
+                                                                                      'font-family': 'Raleway'}),
                                                                        html.Div([' '.join(output_plots)],
-                                                                                style={'font-family': 'Arial'}),
+                                                                                style={'font-family': 'Raleway'}),
                                                                        html.H2(["Data tables"],
                                                                                style={'fontSize': 18,
                                                                                       'font-weight': 'bold',
-                                                                                      'font-family': 'Arial'}),
+                                                                                      'font-family': 'Raleway'}),
                                                                        html.Div([' '.join(data_tables)],
-                                                                                style={'font-family': 'Arial'}),
+                                                                                style={'font-family': 'Raleway'}),
 
                                                                        # ADD LINK
                                                                        html.Div([html.Plaintext(
@@ -237,11 +237,11 @@ dcc.Tab(label='About', style=tab_style, selected_style=tab_selected_style,
                                                                                               href='https://github.com/aaml-analytics/rf-explorer')],
                                                                            style={'display': 'inline-block',
                                                                                   'fontSize': 14,
-                                                                                  'font-family': 'Arial'}),
+                                                                                  'font-family': 'Raleway'}),
                                                                            html.Div([' '.join(MOF_GH)],
                                                                                     style={'display': 'inline-block',
                                                                                            'fontSize': 14,
-                                                                                           'font-family': 'Arial'}),
+                                                                                           'font-family': 'Raleway'}),
                                                                            html.Img(
                                                                                src='https://raw.githubusercontent.com/aaml-analytics/mof'
                                                                                    '-explorer/master/github.png',
@@ -810,7 +810,7 @@ def update_graph_stat(colorscale, feature_value, target, data):
         colorbar={"title": "R²"}))
     return {'data': traces,
             'layout': go.Layout(title='<b>Feature Correlation Analysis with Target Variable</b>', xaxis={},
-                                titlefont=dict(family='Georgia', size=16),
+                                titlefont=dict(family='Helvetica', size=16),
                                 yaxis={},
                                 hovermode='closest', margin={'b': 110, 't': 50, 'l': 170, 'r': 50},
                                 font=dict(family="Helvetica", size=11)),
@@ -1025,7 +1025,7 @@ def populate_randomised_cv_grid(feature_value, target, n_clicks, data, n_inter):
            {'data': traces,
             'layout': go.Layout(
                 title='<b>Parity plot using test set from hyperparameter tuning</b>',
-                titlefont=dict(family='Georgia', size=16),
+                titlefont=dict(family='Helvetica', size=16),
                 showlegend=False,
                 xaxis={
                     'title': "{} (Observed)".format(target),
@@ -1097,7 +1097,7 @@ def update_shared_data(shared_data):
     return {'data': traces,
             'layout': go.Layout(
                 title="<b>Feature Importance</b>",
-                titlefont=dict(family='Georgia', size=16),
+                titlefont=dict(family='Helvetica', size=16),
                 showlegend=False,
                 xaxis={'title': 'Features/ Descriptors'},
                 yaxis={'title': 'Feature Importance'},
@@ -1220,7 +1220,7 @@ def populate_final_RF(feature_value, target, test_size, shared_data, data):
            {'data': traces,
             'layout': go.Layout(
                 title='<b>Parity plot </b>',
-                titlefont=dict(family='Georgia',
+                titlefont=dict(family='Helvetica',
                                size=16),
                 showlegend=False,
                 xaxis={
@@ -1297,7 +1297,7 @@ def update_shared_data_final(shared_data):
     return {'data': traces,
             'layout': go.Layout(
                 title="<b>Feature Importance</b>",
-                titlefont=dict(family='Georgia', size=16),
+                titlefont=dict(family='Helvetica', size=16),
                 showlegend=False,
                 xaxis={'title': 'Features/ Descriptors'},
                 yaxis={'title': 'Feature Importance'},
@@ -1337,7 +1337,7 @@ def populate_error_dist(test_plot_data, target):
             dict(x=-0.12, y=0.5, showarrow=False, text="Count", textangle=-90, xref='paper',
                  yref='paper', font=dict(size=14, family="Helvetica"))],
         title=f"<b> Error Distribution of {''.join(target)} predictions", titlefont=dict(
-            family="Georgia", size=16))
+            family="Helvetica", size=16))
 
 
 @app.callback(Output('download-link-correlation', 'download'),
