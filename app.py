@@ -30,7 +30,8 @@ import threading
 threading._DummyThread._Thread__stop = lambda x: 42
 
 external_stylesheets = [dbc.themes.BOOTSTRAP, 'https://codepen.io/chriddyp/pen/bWLwgP.css',
-                        "https://codepen.io/sutharson/pen/ZEbqopm.css"]
+                        "https://codepen.io/sutharson/pen/ZEbqopm.css", 
+                        "https://fonts.googleapis.com/css2?family=Raleway&display=swap"]
 
 SUP = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
 
