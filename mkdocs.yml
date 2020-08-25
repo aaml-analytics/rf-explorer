@@ -1,0 +1,5 @@
+site_name: Random Forest Visualisation Tools
+theme: readthedocs
+extra:
+ logo: 'logo.jpg'
+ repo_url: https://github.com/aaml-analytics/rf-explorer
