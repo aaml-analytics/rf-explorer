@@ -4,7 +4,7 @@
 These tools aim to provide a reproducible and consistent data visualisation platform where experimental and computational researchers can perform Random Forest (RF) to explore their data and perform regression tasks without requiring a line of code. Random Forest is a supervised machine learning model that learns to map data (features or descriptors) by constructing a multitude of decision trees to outputs (target variables) in the training phase of the model. It uses bagging and feature randomness when building each individual tree to try to create an uncorrelated forest of trees that predict target variables more accurately than a single decision tree.
 
 ### App Manual
-- The app manual, explaining data file upload requirements, features of the tool and how to read the plot outputs can be found [here]
+- The app manual, explaining data file upload requirements, features of the tool and how to read the plot outputs can be found [here](https://aaml-analytics.github.io/rf-explorer/)
 
 ## Deploy app on server (production and development)
 
