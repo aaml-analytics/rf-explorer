@@ -10,7 +10,7 @@ dash-html-components==1.0.3
 dash-renderer==1.4.1
 dash-table==4.7.0
 dnspython==1.16.0
-eventlet==0.25.2
+eventlet==0.31.0
 Flask==1.1.2
 Flask-Compress==1.5.0
 Flask-SeaSurf==0.2.2
